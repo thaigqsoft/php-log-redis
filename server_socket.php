@@ -32,7 +32,8 @@ $factory->createServer('192.168.104.8:9999')->then(function (React\Datagram\Sock
         $ip=$ips[0];
 
         $log_date=date("Y-m-d");
-        $log_time=date("H:i:s");
+        $log_time=date("H");
+        $log_time2=date("i:s");
 
 
         //แตก array  ของค่าที่ LOG ส่งมา
@@ -46,7 +47,7 @@ $factory->createServer('192.168.104.8:9999')->then(function (React\Datagram\Sock
         ]);
         echo $message."\r\n";
 
-        $redis->hmset("$T:$ip:$log_date:$log_time", array(
+        $redis->hmset("$ip:$log_date:$log_time:$log_time2", array(
             "data" => "$message",
          )
         );
