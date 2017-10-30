@@ -1,7 +1,7 @@
 <?php
 // Composer install this package.
 // https://github.com/reactphp/socket
-//error_reporting(E_ALL);
+error_reporting(E_ALL);
 //error_reporting( error_reporting() & ~E_NOTICE );
 // error_reporting(0);
 
@@ -36,8 +36,8 @@ $factory->createServer("$IP_SERVER:$OPEN_PORT_LOG")->then(function (React\Datagr
         $log_date=date("Y-m-d");
         $log_time=date("H");
         $log_time2=date("i:s");
- 
 
+        include 'config.php';
         $redis = new Predis\Client([
             "scheme" => "tcp",
             "host" => "$REDIS_SERVER",
