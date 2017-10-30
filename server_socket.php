@@ -47,15 +47,16 @@ $factory->createServer("$IP_SERVER:$OPEN_PORT_LOG")->then(function (React\Datagr
             "password"=> "$REDIS_PASSWORD",
         ]);
 
-         $msg_data=explode("@@",$message);
-         $hostname_client=$msg_data[0];
-         $message=$msg_data[1];
 
-        $redis->hmset("$ip:$log_date:$msg_data[0]:$log_time:$log_time2", array(
+         $message_clent=json_decode[$message];
+         print_r($message_clent);
+/*
+         $redis->hmset("$ip:$log_date:$msg_data[0]:$log_time:$log_time2", array(
             "data" => "$message",
             "hostname" => "$hostname_client",
          )
         );
+        */
 
     });
 });
