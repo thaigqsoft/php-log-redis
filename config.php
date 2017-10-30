@@ -1,0 +1,6 @@
+<?php
+$IP_SERVER="";
+$REDIS_SERVER="";
+$OPEN_PORT_LOG="";
+$REDIS_PASSWORD="";
+$DATABASE_REDIS="";

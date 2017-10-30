@@ -6,20 +6,22 @@
 // error_reporting(0);
 
 require 'vendor/autoload.php';
-
+include 'config.php';
 ini_set('date.timezone', 'Asia/Bangkok');
 
 
 $redis = new Predis\Client([
     "scheme" => "tcp",
-    "host" => "127.0.0.1",
+    "host" => "$REDIS_SERVER",
     "port" => 6379,
-    "persistent" => "0"
+    "persistent" => "0",
+    "database" => "$DATABASE_REDIS",
+    "password"=> "$REDIS_PASSWORD",
 ]);
 
 $loop = React\EventLoop\Factory::create();
 $factory = new React\Datagram\Factory($loop);
-$factory->createServer('192.168.104.8:9999')->then(function (React\Datagram\Socket $server) {
+$factory->createServer("$IP_SERVER:$OPEN_PORT_LOG")->then(function (React\Datagram\Socket $server) {
     $server->on('message', function($message, $address, $server) {
       //  $server->send('hello ' . $address . '! echo: ' . $message, $address);
 
@@ -34,20 +36,19 @@ $factory->createServer('192.168.104.8:9999')->then(function (React\Datagram\Sock
         $log_date=date("Y-m-d");
         $log_time=date("H");
         $log_time2=date("i:s");
-
-
-        //แตก array  ของค่าที่ LOG ส่งมา
-        //$data_gps_tracker_send=explode(",",$data);
+ 
 
         $redis = new Predis\Client([
             "scheme" => "tcp",
-            "host" => "127.0.0.1",
+            "host" => "$REDIS_SERVER",
             "port" => 6379,
-            "persistent" => "0"
+            "persistent" => "0",
+            "database" => "$DATABASE_REDIS",
+            "password"=> "$REDIS_PASSWORD",
         ]);
         echo $message."\r\n";
 
-        $redis->hmset("$ip:$log_date:$log_time:$log_time2", array(
+        $redis->hmset("$ip:$log_date:$domain:$log_time:$log_time2", array(
             "data" => "$message",
          )
         );
