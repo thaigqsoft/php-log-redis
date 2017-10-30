@@ -71,7 +71,7 @@ $factory->createServer("$IP_SERVER:$OPEN_PORT_LOG")->then(function (React\Datagr
 
          $message_clent=json_decode($message);
          $message_clent=objectToArray($message_clent);
-         
+
 if($message_clent['_user_agent'] !=''){
 
          $redis->hmset("$ip:$log_date:$log_time:$log_time2:".$message_clent['_hostname'].":".$message_clent['_http_status'], array(
@@ -91,6 +91,7 @@ if($message_clent['_user_agent'] !=''){
 
          )
         );
+        echo $message."\r\n";
 }
 
     });
