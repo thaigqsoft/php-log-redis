@@ -72,7 +72,7 @@ $factory->createServer("$IP_SERVER:$OPEN_PORT_LOG")->then(function (React\Datagr
          $message_clent=json_decode($message);
          $message_clent=objectToArray($message_clent);
 
-//if($message_clent['_user_agent'] !=''){
+if($message_clent['_real_ip'] !='103.246.16.158'){
 
          $redis->hmset("$ip:$log_date:$log_time:$log_time2", array(
             "data" => "$message",
@@ -91,8 +91,8 @@ $factory->createServer("$IP_SERVER:$OPEN_PORT_LOG")->then(function (React\Datagr
 
          )
         );
-        echo $message."\r\n";
-//}
+      //  echo $message."\r\n";
+}
 
     });
 });
