@@ -71,14 +71,26 @@ $factory->createServer("$IP_SERVER:$OPEN_PORT_LOG")->then(function (React\Datagr
 
          $message_clent=json_decode($message);
          $message_clent=objectToArray($message_clent);
-         print_r($message_clent);
-/*
-         $redis->hmset("$ip:$log_date:$msg_data[0]:$log_time:$log_time2", array(
+
+
+         $redis->hmset("$ip:$log_date:$log_time:$log_time2:".$message_clent['_http_status'], array(
             "data" => "$message",
-            "hostname" => "$hostname_client",
+            "version"=> $message_clent['version'],
+            "hostname" => $message_clent['_hostname'],
+            "_real_ip" => $message_clent['_real_ip'],
+            "_user_agent" => $message_clent['_user_agent'],
+            "short_message"=> $message_clent['short_message'],
+            "_http_status"=> $message_clent['_http_status'],
+            "_source_ip" => $message_clent['_source_ip'],
+            "_http_request_path" => $message_clent['_http_request_path'],
+            "_http_method" => $message_clent['_http_method'],
+            "_http_referer" => $message_clent['_http_referer'],
+            "_varnish_hitmiss" => $message_clent['_varnish_hitmiss'],
+            "_http_request" => $message_clent['_http_request'],
+
          )
         );
-        */
+
 
     });
 });
